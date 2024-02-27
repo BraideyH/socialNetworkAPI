@@ -3,7 +3,6 @@ const { User, Thought } = require('../models');
 
 
 module.exports = {
-  // Get all students
   async getAllUsers(req, res) {
     try {
       const users = await User.find();
@@ -19,7 +18,6 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
-  // Get a single student
   async getSingleUserById(req, res) {
     try {
       const user = await User.findOne({ _id: req.params.userId })
@@ -37,7 +35,6 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
-  // create a new student
   async createNewUser(req, res) {
     try {
       const user = await User.create(req.body);
@@ -46,7 +43,6 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-  // Delete a student and remove them from the course
   async deleteUser(req, res) {
     try {
       const user = await User.findOneAndRemove({ _id: req.params.userId });
@@ -77,7 +73,6 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-  // Add an assignment to a student
   async addNewFriend(req, res) {
     console.log('You are adding a new friend');
     console.log(req.body);
@@ -100,7 +95,6 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-  // Remove assignment from a student
   async removefriend(req, res) {
     try {
       const user = await User.findOneAndUpdate(
