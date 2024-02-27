@@ -43,8 +43,11 @@ module.exports = {
       if (!thought) {
         res.status(404).json({ message: 'No thoughts with that ID' });
       }
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json(err);
     }
-  };
+  },
   // Update a course
   async updateThoughtById(req, res) {
     try {

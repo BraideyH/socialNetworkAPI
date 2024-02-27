@@ -53,27 +53,30 @@ module.exports = {
 
       if (!user) {
         return res.status(404).json({ message: 'No such user exists' });
-      }
-
-      const user = await User.findOneAndUpdate(
-        { users: req.params.userId },
-        { $pull: { userss: req.params.userId } },
-        { new: true }
-      );
-
-      if (!user) {
-        return res.status(404).json({
-          message: 'User deleted, but no thoughts found',
-        });
-      }
-
+      } 
+      Thought.deleteMany({ _id: {$in: user.thoughts}})
       res.json({ message: 'User successfully deleted' });
+
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
     }
   },
+  async updateUser(req, res) {
+    try {
+      const user = await User.findOneAndUpdate({ _id: req.params.userId });
 
+      if (!user) {
+        return res.status(404).json({ message: 'No such user exists' });
+      } 
+      Thought.deleteMany({ _id: {$in: user.thoughts}})
+      res.json({ message: 'User successfully updated' });
+
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
   // Add an assignment to a student
   async addNewFriend(req, res) {
     console.log('You are adding a new friend');
